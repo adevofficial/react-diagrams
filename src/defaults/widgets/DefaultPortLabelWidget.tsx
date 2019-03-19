@@ -12,19 +12,33 @@ export interface DefaultPortLabelState {}
 /**
  * @author Dylan Vorster
  */
-export class DefaultPortLabel extends BaseWidget<DefaultPortLabelProps, DefaultPortLabelState> {
+export class DefaultPortLabel extends BaseWidget<
+	DefaultPortLabelProps,
+	DefaultPortLabelState
+> {
 	constructor(props) {
 		super("srd-default-port", props);
 	}
 
 	getClassName() {
-		return super.getClassName() + (this.props.model.in ? this.bem("--in") : this.bem("--out"));
+		return (
+			super.getClassName() +
+			(this.props.model.in ? this.bem("--in") : this.bem("--out"))
+		);
 	}
 
 	render() {
-		var port = <PortWidget node={this.props.model.getParent()} name={this.props.model.name} />;
-		var label = <div className="name">{this.props.model.label}</div>;
-
+		var port = (
+			<PortWidget
+				node={this.props.model.getParent()}
+				name={this.props.model.name}
+			/>
+		);
+		var label = this.props.model.InOut ? (
+			<div />
+		) : (
+			<div className="name">{this.props.model.label}</div>
+		);
 		return (
 			<div {...this.getProps()}>
 				{this.props.model.in ? port : label}

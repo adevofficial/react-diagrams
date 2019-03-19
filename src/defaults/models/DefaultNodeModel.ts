@@ -19,6 +19,17 @@ export class DefaultNodeModel extends NodeModel {
 		this.color = color;
 	}
 
+	addInOutPort(label: string): DefaultPortModel[] {
+		const inPort = this.addPort(
+			new DefaultPortModel(true, Toolkit.UID(), label, true)
+		);
+		const outPort = this.addPort(
+			new DefaultPortModel(false, Toolkit.UID(), label, true)
+		);
+
+		return [inPort, outPort];
+	}
+
 	addInPort(label: string): DefaultPortModel {
 		return this.addPort(new DefaultPortModel(true, Toolkit.UID(), label));
 	}
@@ -40,15 +51,28 @@ export class DefaultNodeModel extends NodeModel {
 		});
 	}
 
+	getInOutPorts(): any {
+		let InOutObj = {};
+		_.map(this.ports, portModel => {
+			if (portModel.InOut) {
+				if (!Array.isArray(InOutObj[portModel.label])) {
+					InOutObj[portModel.label] = [];
+				}
+				InOutObj[portModel.label].push(portModel);
+			}
+		});
+		return InOutObj;
+	}
+
 	getInPorts(): DefaultPortModel[] {
 		return _.filter(this.ports, portModel => {
-			return portModel.in;
+			return portModel.in && !portModel.InOut;
 		});
 	}
 
 	getOutPorts(): DefaultPortModel[] {
 		return _.filter(this.ports, portModel => {
-			return !portModel.in;
+			return !portModel.in && !portModel.InOut;
 		});
 	}
 }

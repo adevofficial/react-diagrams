@@ -8,23 +8,33 @@ export class DefaultPortModel extends PortModel {
 	in: boolean;
 	label: string;
 	links: { [id: string]: DefaultLinkModel };
+	InOut?: boolean;
 
-	constructor(isInput: boolean, name: string, label: string = null, id?: string) {
+	constructor(
+		isInput: boolean,
+		name: string,
+		label: string = null,
+		InOut?: boolean,
+		id?: string
+	) {
 		super(name, "default", id);
 		this.in = isInput;
 		this.label = label || name;
+		this.InOut = InOut;
 	}
 
 	deSerialize(object, engine: DiagramEngine) {
 		super.deSerialize(object, engine);
 		this.in = object.in;
 		this.label = object.label;
+		this.InOut = object.InOut;
 	}
 
 	serialize() {
 		return _.merge(super.serialize(), {
 			in: this.in,
-			label: this.label
+			label: this.label,
+			InOut: this.InOut
 		});
 	}
 

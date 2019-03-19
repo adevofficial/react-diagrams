@@ -30,7 +30,8 @@
 		"lint": "tslint -p .",
 		"test:ci": "rm -rf ./dist && node ./tests/e2e/generate-e2e.js && jest --no-cache",
 		"test": "jest --no-cache",
-		"prepublishOnly": "yarn run build:ts:prod && yarn run build:sass:prod"
+		"prepublishOnly": "yarn run build:ts:prod && yarn run build:sass:prod",
+		"prepublish": "yarn run  prepublishOnly && cp -r ./dist ./../client/src/lib/diagrams"
 	},
 	"dependencies": {
 		"closest": "^0.0.1",
@@ -79,7 +80,7 @@
 		"ts-jest": "^22.4.4",
 		"ts-loader": "^4.2.0",
 		"tslint": "^5.10.0",
-		"typescript": "^2.8.3",
+		"typescript": "^3.4.1",
 		"uglifyjs-webpack-plugin": "^1.2.5",
 		"val-loader": "^1.1.0",
 		"webpack": "^4.7.0",
