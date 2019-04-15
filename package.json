@@ -30,8 +30,7 @@
 		"lint": "tslint -p .",
 		"test:ci": "rm -rf ./dist && node ./tests/e2e/generate-e2e.js && jest --no-cache",
 		"test": "jest --no-cache",
-		"prepublishOnly": "yarn run build:ts:prod && yarn run build:sass:prod",
-		"prepublish": "yarn run  prepublishOnly && cp -r ./dist ./../client/src/lib/diagrams"
+		"prepublishOnly": "yarn run build:ts:prod && yarn run build:sass:prod"
 	},
 	"dependencies": {
 		"closest": "^0.0.1",
