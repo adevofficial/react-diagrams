@@ -1,12 +1,12 @@
-import { LabelModel } from "../../models/LabelModel";
-import * as _ from "lodash";
-import { DiagramEngine } from "../../DiagramEngine";
+import { LabelModel } from '../../models/LabelModel';
+import * as _ from 'lodash';
+import { DiagramEngine } from '../../DiagramEngine';
 
 export class DefaultLabelModel extends LabelModel {
 	label: string;
 
 	constructor() {
-		super("default");
+		super('default');
 		this.offsetY = -23;
 	}
 
@@ -17,11 +17,12 @@ export class DefaultLabelModel extends LabelModel {
 	deSerialize(ob, engine: DiagramEngine) {
 		super.deSerialize(ob, engine);
 		this.label = ob.label;
+		engine.repaintCanvas();
 	}
 
 	serialize() {
 		return _.merge(super.serialize(), {
-			label: this.label
+			label: this.label,
 		});
 	}
 }
